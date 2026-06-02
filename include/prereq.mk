@@ -114,11 +114,11 @@ define SetupHostCommand
 						;; \
 				esac; \
 				ln -sf "$$$$$$$${bin#$(STAGING_DIR_HOST)/bin/}" "$(STAGING_DIR_HOST)/bin/$(strip $(1))"; \
-				exit 1; \
+				exit 0; \
 			fi; \
 		fi; \
 	done; \
-	exit 1
+	exit 0
   endef
 
   $$(eval $$(call Require,$(1),$(if $(2),$(2),Missing $(1) command)))
