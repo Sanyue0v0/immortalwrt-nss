@@ -1,0 +1,30 @@
+name: Build Openwrt
+on:
+    push:
+        branches: ["master"]
+
+jobs:
+    build:
+        runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update feeds
+        run: ./scripts/feeds update -a && ./scripts/feeds install -a
+
+      - name: Configure
+        run: |
+          cp auto_build/ax3600.config .config
+          make defconfig
+
+      - name: Download sources
+        run: make download -j$(nproc) V=s
+
+      - name: Build
+        run: make -j$(nproc) V=s || make V=s
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ax3600-nss
+          path: bin/targets/qualcommax/ipq807x/*
