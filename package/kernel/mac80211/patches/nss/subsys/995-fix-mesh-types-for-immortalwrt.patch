@@ -1,0 +1,20 @@
+--- a/drivers/net/wireless/ath/ath11k/nss.h
++++ b/drivers/net/wireless/ath/ath11k/nss.h
+@@ -330,10 +330,17 @@ int ath11k_nss_vdev_delete(struct ath11k_vif *arvif);
+ int ath11k_nss_vdev_delete_sync(struct ath11k_vif *arvif);
+ int ath11k_nss_vdev_down(struct ath11k_vif *arvif);
+ 
++#ifdef CONFIG_ATH11K_NSS_MESH_SUPPORT
+ int
+ ath11k_nss_mesh_config_path(struct ath11k *ar, struct ath11k_vif *arvif,
+ 			    enum ieee80211_mesh_path_offld_cmd cmd,
+ 			    struct ieee80211_mesh_path_offld *path);
++#else
++static inline int
++ath11k_nss_mesh_config_path(struct ath11k *ar, struct ath11k_vif *arvif,
++			    void *cmd, void *path)
++{ return -EOPNOTSUPP; }
++#endif
+ 
+ void ath11k_nss_mesh_set_nawds(struct ath11k *ar, struct ath11k_vif *arvif, bool enable);
+ void ath11k_nss_mesh_vdev_delete(struct ath11k_vif *arvif);
