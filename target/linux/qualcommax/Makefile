@@ -18,6 +18,10 @@ DEFAULT_PACKAGES += \
 	wpad-basic-mbedtls uboot-envtools \
 	e2fsprogs kmod-fs-ext4 losetup \
 	kmod-qca-nss-drv kmod-qca-nss-ecm \
-	kmod-qca-nss-drv-bridge-mgr
+	kmod-qca-nss-drv-bridge-mgr \
+	kmod-usb-net kmod-usb-net-rndis kmod-usb-net-cdc-ether \
+	kmod-usb-net-qmi-wwan kmod-usb-serial-option usb-modeswitch \
+	luci-app-ttyd luci-theme-argon luci-app-argon-config \
+	kmod-sched-cake irqbalance
 
 $(eval $(call BuildTarget))
