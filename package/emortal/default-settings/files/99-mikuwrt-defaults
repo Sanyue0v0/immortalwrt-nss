@@ -4,7 +4,12 @@
 uci -q batch <<-SETV6
 	set dhcp.lan.ra='server'
 	set dhcp.lan.dhcpv6='server'
-	set dhcp.lan.ra_management='2'
+	set dhcp.lan.dhcpv6_na='0'
+	set dhcp.lan.ra_slaac='1'
+	set dhcp.lan.ra_dns='1'
+	delete dhcp.lan.ra_management
+	delete dhcp.lan.ra_flags
+	add_list dhcp.lan.ra_flags='other-config'
 	commit dhcp
 SETV6
 

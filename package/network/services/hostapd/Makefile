@@ -5,7 +5,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=hostapd
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=https://w1.fi/hostap.git
 PKG_SOURCE_PROTO:=git
@@ -506,6 +506,7 @@ define Package/hostapd-common
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=WirelessAPD
+  DEPENDS:=+wifi-scripts
 endef
 
 define Package/hostapd-utils

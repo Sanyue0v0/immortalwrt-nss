@@ -169,6 +169,7 @@
 			rootfs: partition@2dc0000 {
 				label = "rootfs";
 				reg = <0x2dc0000 0xd240000>;
+				linux,rootfs;
 			};
 		};
 	};
@@ -183,6 +184,7 @@
 
 	ethernet-phy-package@0 {
 		compatible = "qcom,qca8075-package";
+		qcom,package-mode = "psgmii";
 		#address-cells = <1>;
 		#size-cells = <0>;
 		reg = <0>;

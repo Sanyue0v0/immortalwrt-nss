@@ -15,6 +15,22 @@ platform_do_upgrade() {
 		CI_ROOTPART="rootfs"
 		emmc_do_upgrade "$1"
 		;;
+	xiaomi,be7000)
+		sync
+		be7000_do_upgrade "$1" && {
+			echo "sysupgrade successful"
+			umount -a
+			reboot -f
+		}
+		echo "sysupgrade failed"
+		return 1
+		;;
+	askey,sbe1v1k)
+		CI_KERNPART="0:HLOS"
+		CI_ROOTPART="rootfs"
+		CI_DATAPART="rootfs_data"
+		emmc_do_upgrade "$1"
+		;;
 	*)
 		default_do_upgrade "$1"
 		;;
@@ -23,7 +39,8 @@ platform_do_upgrade() {
 
 platform_copy_config() {
 	case "$(board_name)" in
-	8devices,kiwi-dvk)
+	8devices,kiwi-dvk|\
+	askey,sbe1v1k)
 		emmc_copy_config
 		;;
 	esac

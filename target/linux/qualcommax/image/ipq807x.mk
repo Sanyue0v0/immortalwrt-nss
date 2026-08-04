@@ -467,7 +467,7 @@ define Device/tplink_deco-x80-5g
 	PAGESIZE := 2048
 	DEVICE_DTS_CONFIG := config@hk01.c5
 	SOC := ipq8074
-	DEVICE_PACKAGES := kmod-hwmon-gpiofan ipq-wifi-tplink_deco-x80-5g kmod-usb-serial-option kmod-usb-net-qmi-wwan
+	DEVICE_PACKAGES := kmod-hwmon-gpiofan ipq-wifi-tplink_deco-x80-5g kmod-usb-serial-option kmod-usb-net-qmi-wwan kmod-mhi-pci-generic kmod-mhi-wwan-ctrl kmod-mhi-wwan-mbim
 endef
 TARGET_DEVICES += tplink_deco-x80-5g
 
@@ -665,6 +665,49 @@ define Device/zyxel_nwa210ax
 	ZYXEL_MODEL_ID := 5c e1
 endef
 TARGET_DEVICES += zyxel_nwa210ax
+
+define Device/arista_ap-c260
+	$(call Device/FitImage)
+	$(call Device/UbiFit)
+	DEVICE_VENDOR := Arista
+	DEVICE_MODEL := AP-C260
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
+	KERNEL_SIZE := 6144k
+	SOC := ipq8078
+	DEVICE_DTS := ipq8078-ap-c260
+	DEVICE_DTS_CONFIG := config@hk01
+	SUPPORTED_DEVICES := arista,c260
+	DEVICE_PACKAGES := kmod-phy-aquantia kmod-spi-gpio \
+		kmod-gpio-nxp-74hc164 ipq-wifi-arista_c260
+	IMAGES := sysupgrade.bin factory.bin
+	IMAGE/factory.bin := append-ubi
+	ARTIFACTS := kernel.itb
+	ARTIFACT/kernel.itb := append-kernel | check-size $$$$(KERNEL_SIZE)
+endef
+TARGET_DEVICES += arista_ap-c260
+
+define Device/arista_ap-c360
+	$(call Device/FitImage)
+	$(call Device/UbiFit)
+	DEVICE_VENDOR := Arista
+	DEVICE_MODEL := AP-C360
+	BLOCKSIZE := 256k
+	PAGESIZE := 4096
+	KERNEL_SIZE := 6144k
+	SOC := ipq8076
+	DEVICE_DTS := ipq8076-ap-c360
+	DEVICE_DTS_CONFIG := config@hk09
+	SUPPORTED_DEVICES := arista,c360
+	DEVICE_PACKAGES := kmod-ath11k-pci \
+		kmod-phy-aquantia kmod-spi-gpio kmod-gpio-nxp-74hc164 \
+		ipq-wifi-arista_c360 ap-c360-radio-mode
+	IMAGES := sysupgrade.bin factory.bin
+	IMAGE/factory.bin := append-ubi
+	ARTIFACTS := kernel.itb
+	ARTIFACT/kernel.itb := append-kernel | check-size $$$$(KERNEL_SIZE)
+endef
+TARGET_DEVICES += arista_ap-c360
 
 define Device/verizon_cr1000a
 	$(call Device/FitImage)
