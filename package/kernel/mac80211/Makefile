@@ -41,6 +41,9 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_RTLWIFI_DEBUG
 
 include $(INCLUDE_DIR)/package.mk
+ifdef CONFIG_ATH11K_NSS_SUPPORT
+PKG_BUILD_DEPENDS += qca-nss-drv qca-nss-clients
+endif
 
 WMENU:=Wireless Drivers
 NSS_PATCH:= subsys ath10k ath11k
